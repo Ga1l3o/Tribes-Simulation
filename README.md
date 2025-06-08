@@ -82,8 +82,8 @@ Kod jest podzielony na następujące pliki:
 
 ## Skład zespołu
 
-- **Michał Janic (284446)** – Lider projektu  
-- **Mikołaj Petek (284436)**
+- **Michał J.** – Lider projektu  
+- **Mikołaj P.**
 
 ---
 
