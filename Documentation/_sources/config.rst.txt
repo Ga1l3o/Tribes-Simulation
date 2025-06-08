@@ -1,0 +1,9 @@
+Config Module
+=============
+
+Moduł `config.py` zawiera stałe konfiguracyjne używane w symulacji plemion. Stałe te definiują parametry planszy, plemion, surowców, konsumpcji, kosztów akcji oraz wojowników.
+
+.. automodule:: config
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>graf &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=331e28ce"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=2827c288"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Kod modułu</a></li>
+      <li class="breadcrumb-item active">graf</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu graf</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>  <span class="c1"># import biblioteki pandas do manipulacji danymi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># import biblioteki matplotlib do tworzenia wykresów</span>
+
+<div class="viewcode-block" id="TribeCharts">
+<a class="viewcode-back" href="../graf.html#graf.TribeCharts">[dokumentacja]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TribeCharts</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Konstruktor klasy WykresyPlemion.</span>
+<span class="sd">        filename: ścieżka do pliku CSV zawierającego dane plemion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>  <span class="c1"># zapisanie nazwy pliku jako atrybut obiektu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># wczytanie danych z pliku CSV do DataFrame</span>
+        <span class="c1"># lista unikalnych identyfikatorów plemion, posortowana rosnąco</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tribes_to_compare</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tribe_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="c1"># kolumny, które chcemy przedstawić na wykresach</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_of_interest</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;food&#39;</span><span class="p">,</span> <span class="s1">&#39;building_materials&#39;</span><span class="p">,</span> <span class="s1">&#39;workers&#39;</span><span class="p">,</span> <span class="s1">&#39;warriors&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="TribeCharts.draw_charts">
+<a class="viewcode-back" href="../graf.html#graf.TribeCharts.draw_charts">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw_charts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Metoda rysująca wykresy dla każdej z wybranych kolumn,</span>
+<span class="sd">        porównująca wartości dla poszczególnych plemion w kolejnych turach.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># iteracja po każdej z kolumn zainteresowania</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_of_interest</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>  <span class="c1"># utworzenie nowej figury o rozmiarze 12x7 cali (w Matplotlib musimy w calach)</span>
+
+            <span class="c1"># dla każdego plemienia narysuj osobną linię na wykresie</span>
+            <span class="k">for</span> <span class="n">tribe_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tribes_to_compare</span><span class="p">:</span>
+                <span class="c1"># wyfiltrowanie danych tylko dla bieżącego plemienia</span>
+                <span class="n">tribe_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tribe_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tribe_id</span><span class="p">]</span>
+                <span class="c1"># narysowanie linii: oś X = &#39;turn&#39;, oś Y = wartość kolumny col</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tribe_data</span><span class="p">[</span><span class="s1">&#39;turn&#39;</span><span class="p">],</span> <span class="n">tribe_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Tribe </span><span class="si">{</span><span class="n">tribe_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># ustawienie tytułu wykresu, w zależności od analizowanej kolumny</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Porównanie plemion: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tura&#39;</span><span class="p">)</span>  <span class="c1"># etykieta osi X</span>
+            <span class="c1"># etykieta osi Y: zamiana podkreśleń na spacje i kapitalizacja</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+            <span class="c1"># legenda wyświetlająca etykiety dla poszczególnych plemion</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># włączenie siatki na wykresie</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># dopasowanie marginesów, aby nic nie było obcięte</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># wyświetlenie wykresu</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

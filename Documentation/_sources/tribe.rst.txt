@@ -1,0 +1,7 @@
+Tribe Module
+============
+
+.. automodule:: tribe
+   :members:
+   :show-inheritance:
+   :undoc-members:

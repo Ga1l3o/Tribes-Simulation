@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tribe Module &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=331e28ce"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=2827c288"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Units Module" href="units.html" />
+    <link rel="prev" title="Simulation Module" href="simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Simulation Module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tribe Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tribe.Tribe"><code class="docutils literal notranslate"><span class="pre">Tribe</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.add_territory"><code class="docutils literal notranslate"><span class="pre">Tribe.add_territory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.add_warrior"><code class="docutils literal notranslate"><span class="pre">Tribe.add_warrior()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.add_worker"><code class="docutils literal notranslate"><span class="pre">Tribe.add_worker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.can_add_population"><code class="docutils literal notranslate"><span class="pre">Tribe.can_add_population()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.collect_resources"><code class="docutils literal notranslate"><span class="pre">Tribe.collect_resources()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.consume_food"><code class="docutils literal notranslate"><span class="pre">Tribe.consume_food()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.expand"><code class="docutils literal notranslate"><span class="pre">Tribe.expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.perform_action"><code class="docutils literal notranslate"><span class="pre">Tribe.perform_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.reduce_population"><code class="docutils literal notranslate"><span class="pre">Tribe.reduce_population()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.total_population"><code class="docutils literal notranslate"><span class="pre">Tribe.total_population()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.total_strength"><code class="docutils literal notranslate"><span class="pre">Tribe.total_strength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.train_warriors"><code class="docutils literal notranslate"><span class="pre">Tribe.train_warriors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.train_workers"><code class="docutils literal notranslate"><span class="pre">Tribe.train_workers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.tribe_count"><code class="docutils literal notranslate"><span class="pre">Tribe.tribe_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tribe.Tribe.upgrade_warriors"><code class="docutils literal notranslate"><span class="pre">Tribe.upgrade_warriors()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tribe Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tribe.rst.txt" rel="nofollow"> Zobacz źródło strony</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tribe">
+<span id="tribe-module"></span><h1>Tribe Module<a class="headerlink" href="#module-tribe" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tribe.Tribe">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tribe.</span></span><span class="sig-name descname"><span class="pre">Tribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe" title="Link to this definition"></a></dt>
+<dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasa reprezentująca plemię</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.add_territory">
+<span class="sig-name descname"><span class="pre">add_territory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.add_territory"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.add_territory" title="Link to this definition"></a></dt>
+<dd><p>Dodaj nowe terytorium dla plemienia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.add_warrior">
+<span class="sig-name descname"><span class="pre">add_warrior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.add_warrior"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.add_warrior" title="Link to this definition"></a></dt>
+<dd><p>Dodaj wojownika jeśli populacja pozwala</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.add_worker">
+<span class="sig-name descname"><span class="pre">add_worker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.add_worker"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.add_worker" title="Link to this definition"></a></dt>
+<dd><p>Dodaj robotnika jeśli populacja pozwala</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.can_add_population">
+<span class="sig-name descname"><span class="pre">can_add_population</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.can_add_population"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.can_add_population" title="Link to this definition"></a></dt>
+<dd><p>Sprawdź, czy można dodać nową jednostkę</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.collect_resources">
+<span class="sig-name descname"><span class="pre">collect_resources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.collect_resources"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.collect_resources" title="Link to this definition"></a></dt>
+<dd><p>Zbierz surowce w turze</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.consume_food">
+<span class="sig-name descname"><span class="pre">consume_food</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.consume_food"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.consume_food" title="Link to this definition"></a></dt>
+<dd><p>Konsumuj jedzenie i redukuj populację jeśli ilość jedzenia jest niewystarczająca</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.expand">
+<span class="sig-name descname"><span class="pre">expand</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.expand"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.expand" title="Link to this definition"></a></dt>
+<dd><p>Rozszerz terytorium, zużywając procent dostępnego budulca</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.perform_action">
+<span class="sig-name descname"><span class="pre">perform_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.perform_action"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.perform_action" title="Link to this definition"></a></dt>
+<dd><p>Oblicz wagi dla poszczególnych akcji oraz wykonaj akcję w turze z wagą zależną od stanu plemienia.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.reduce_population">
+<span class="sig-name descname"><span class="pre">reduce_population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deficit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.reduce_population"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.reduce_population" title="Link to this definition"></a></dt>
+<dd><p>Redukuj populację z powodu braku jedzenia (najpierw wojownicy)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.total_population">
+<span class="sig-name descname"><span class="pre">total_population</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.total_population"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.total_population" title="Link to this definition"></a></dt>
+<dd><p>Oblicz całkowitą populację danego plemienia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.total_strength">
+<span class="sig-name descname"><span class="pre">total_strength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.total_strength"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.total_strength" title="Link to this definition"></a></dt>
+<dd><p>Oblicz całkowitą siłę wojowników danego plemienia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.train_warriors">
+<span class="sig-name descname"><span class="pre">train_warriors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.train_warriors"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.train_warriors" title="Link to this definition"></a></dt>
+<dd><p>Szkol nowych wojowników, zużywając procent dostępnego jedzenia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.train_workers">
+<span class="sig-name descname"><span class="pre">train_workers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.train_workers"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.train_workers" title="Link to this definition"></a></dt>
+<dd><p>Szkol nowych robotników, zużywając procent dostępnego jedzenia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tribe.Tribe.upgrade_warriors">
+<span class="sig-name descname"><span class="pre">upgrade_warriors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tribe.html#Tribe.upgrade_warriors"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#tribe.Tribe.upgrade_warriors" title="Link to this definition"></a></dt>
+<dd><p>Ulepsz wojowników, zużywając procent dostępnego budulca</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simulation.html" class="btn btn-neutral float-left" title="Simulation Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Poprzedni</a>
+        <a href="units.html" class="btn btn-neutral float-right" title="Units Module" accesskey="n" rel="next">Następny <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

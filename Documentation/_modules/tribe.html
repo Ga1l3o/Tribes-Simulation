@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tribe &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=331e28ce"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=2827c288"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Kod modułu</a></li>
+      <li class="breadcrumb-item active">tribe</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu tribe</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">units</span><span class="w"> </span><span class="kn">import</span> <span class="n">Worker</span><span class="p">,</span> <span class="n">Warrior</span>
+
+
+<div class="viewcode-block" id="Tribe">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe">[dokumentacja]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Tribe</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Klasa reprezentująca plemię&quot;&quot;&quot;</span>
+    <span class="n">tribe_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># licznik plemion</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Tribe</span><span class="o">.</span><span class="n">tribe_count</span>
+        <span class="n">Tribe</span><span class="o">.</span><span class="n">tribe_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span> <span class="o">=</span> <span class="n">board</span>  <span class="c1"># agregacja - plansza</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">territory</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># kompozycja - zajęte pola</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workers</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># kompozycja - robotnicy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># kompozycja - wojownicy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Początkowe umieszczenie na planszy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_territory</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># Początkowa populacja</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_worker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_warrior</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Tribe.add_territory">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.add_territory">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_territory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dodaj nowe terytorium dla plemienia&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span></div>
+
+
+<div class="viewcode-block" id="Tribe.add_worker">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.add_worker">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dodaj robotnika jeśli populacja pozwala&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_add_population</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Tribe.add_warrior">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.add_warrior">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_warrior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dodaj wojownika jeśli populacja pozwala&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_add_population</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Warrior</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Tribe.can_add_population">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.can_add_population">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_add_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sprawdź, czy można dodać nową jednostkę&quot;&quot;&quot;</span>
+        <span class="n">current_population</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">current_population</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="n">POPULATION_PER_TERRITORY</span></div>
+
+
+<div class="viewcode-block" id="Tribe.collect_resources">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.collect_resources">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">collect_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Zbierz surowce w turze&quot;&quot;&quot;</span>
+        <span class="c1"># Budulec z robotników</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span> <span class="o">*</span> <span class="n">BUILDING_MATERIAL_PER_WORKER</span>
+        <span class="c1"># Jedzenie z terytorium</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="n">FOOD_PER_TERRITORY</span></div>
+
+
+<div class="viewcode-block" id="Tribe.consume_food">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.consume_food">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">consume_food</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Konsumuj jedzenie i redukuj populację jeśli ilość jedzenia jest niewystarczająca&quot;&quot;&quot;</span>
+        <span class="n">total_consumption</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">food_consumption</span><span class="p">()</span> <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workers</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">&lt;</span> <span class="n">total_consumption</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reduce_population</span><span class="p">(</span><span class="n">total_consumption</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">-=</span> <span class="n">total_consumption</span></div>
+
+
+<div class="viewcode-block" id="Tribe.reduce_population">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.reduce_population">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reduce_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deficit</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Redukuj populację z powodu braku jedzenia (najpierw wojownicy)&quot;&quot;&quot;</span>
+        <span class="c1"># Polimorfizm - różne jednostki mają różne koszty konsumpcji</span>
+        <span class="k">while</span> <span class="n">deficit</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warriors</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">:</span>
+                <span class="n">warrior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">deficit</span> <span class="o">-=</span> <span class="n">warrior</span><span class="o">.</span><span class="n">food_consumption</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">:</span>
+                <span class="n">worker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">deficit</span> <span class="o">-=</span> <span class="n">worker</span><span class="o">.</span><span class="n">food_consumption</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tribe.train_workers">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.train_workers">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Szkol nowych robotników, zużywając procent dostępnego jedzenia&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">&lt;</span> <span class="n">WORKER_RECRUITMENT_COST</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># Procent jedzenia, który plemię chce wydać na rekrutację</span>
+        <span class="n">spend_percent</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">RECRUITMENT_MIN_PERCENT</span><span class="p">,</span> <span class="n">RECRUITMENT_MAX_PERCENT</span><span class="p">)</span>
+        <span class="n">food_to_spend</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">*</span> <span class="n">spend_percent</span><span class="p">)</span>
+
+        <span class="c1"># Maksymalna liczba robotników, jaką można zrekrutować za tę ilość jedzenia</span>
+        <span class="n">recruits_from_food</span> <span class="o">=</span> <span class="n">food_to_spend</span> <span class="o">//</span> <span class="n">WORKER_RECRUITMENT_COST</span>
+
+        <span class="c1"># Maksymalna liczba robotników, jaką można zrekrutować, uwzględniając limit populacji</span>
+        <span class="n">max_possible_recruits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="n">POPULATION_PER_TERRITORY</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_population</span><span class="p">()</span>
+
+        <span class="n">recruits</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">recruits_from_food</span><span class="p">,</span> <span class="n">max_possible_recruits</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">recruits</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">recruits</span> <span class="o">*</span> <span class="n">WORKER_RECRUITMENT_COST</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">-=</span> <span class="n">cost</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">recruits</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_worker</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">recruits</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="Tribe.train_warriors">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.train_warriors">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_warriors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Szkol nowych wojowników, zużywając procent dostępnego jedzenia&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">&lt;</span> <span class="n">WARRIOR_RECRUITMENT_COST</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># Procent jedzenia, który plemię chce wydać na rekrutację</span>
+        <span class="n">spend_percent</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">RECRUITMENT_MIN_PERCENT</span><span class="p">,</span> <span class="n">RECRUITMENT_MAX_PERCENT</span><span class="p">)</span>
+        <span class="n">food_to_spend</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">*</span> <span class="n">spend_percent</span><span class="p">)</span>
+
+        <span class="c1"># Maksymalna liczba wojowników, jaką można zrekrutować za tę ilość jedzenia</span>
+        <span class="n">recruits_from_food</span> <span class="o">=</span> <span class="n">food_to_spend</span> <span class="o">//</span> <span class="n">WARRIOR_RECRUITMENT_COST</span>
+
+        <span class="c1"># Maksymalna liczba wojowników, jaką można zrekrutować, uwzględniając limit populacji</span>
+        <span class="n">max_possible_recruits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="n">POPULATION_PER_TERRITORY</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_population</span><span class="p">()</span>
+
+        <span class="n">recruits</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">recruits_from_food</span><span class="p">,</span> <span class="n">max_possible_recruits</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">recruits</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">recruits</span> <span class="o">*</span> <span class="n">WARRIOR_RECRUITMENT_COST</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">-=</span> <span class="n">cost</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">recruits</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_warrior</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">recruits</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="Tribe.expand">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.expand">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rozszerz terytorium, zużywając procent dostępnego budulca&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">&lt;</span> <span class="n">EXPANSION_COST</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Szukaj sąsiednich wolnych pól</span>
+        <span class="n">neighbors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]:</span>
+                <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span>
+                <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="c1"># Warunek zabezpieczający przed wyjściem poza planszę</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">neighbors</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">neighbors</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Oblicz, ile ekspansji można przeprowadzić</span>
+        <span class="c1"># Chcemy wydać procent materiałów</span>
+        <span class="n">spend_percent</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">RECRUITMENT_MIN_PERCENT</span><span class="p">,</span> <span class="n">RECRUITMENT_MAX_PERCENT</span><span class="p">)</span>  <span class="c1"># Używamy tych samych % co dla rekrutacji dla spójności</span>
+        <span class="n">materials_to_spend</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">*</span> <span class="n">spend_percent</span><span class="p">)</span>
+
+        <span class="n">possible_expansions</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">materials_to_spend</span> <span class="o">//</span> <span class="n">EXPANSION_COST</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbors</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">possible_expansions</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">expanded_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Wybierz losowe pola do rozszerzenia spośród dostępnych</span>
+        <span class="n">chosen_neighbors</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">neighbors</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">possible_expansions</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)))</span>
+
+        <span class="k">for</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="n">chosen_neighbors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">&gt;=</span> <span class="n">EXPANSION_COST</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">-=</span> <span class="n">EXPANSION_COST</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_territory</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span>
+                <span class="n">expanded_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>  <span class="c1"># Brak materiałów na dalszą ekspansję</span>
+
+        <span class="k">return</span> <span class="n">expanded_count</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="Tribe.upgrade_warriors">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.upgrade_warriors">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upgrade_warriors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ulepsz wojowników, zużywając procent dostępnego budulca&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">&lt;</span> <span class="n">UPGRADE_COST</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># Procent budulca, który plemię chce wydać na ulepszenia</span>
+        <span class="n">spend_percent</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">MATERIALS_MIN_PERCENT</span><span class="p">,</span> <span class="n">MATERIALS_MAX_PERCENT</span><span class="p">)</span>
+        <span class="n">materials_to_spend</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">*</span> <span class="n">spend_percent</span><span class="p">)</span>
+
+        <span class="c1"># Maksymalna liczba ulepszeń, jaką można przeprowadzić za tę ilość materiałów</span>
+        <span class="n">possible_upgrades</span> <span class="o">=</span> <span class="n">materials_to_spend</span> <span class="o">//</span> <span class="n">UPGRADE_COST</span>
+
+        <span class="c1"># Limit ulepszeń do tych, które mogą być jeszcze ulepszone</span>
+        <span class="n">upgradable_warriors</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">level</span> <span class="o">&lt;</span> <span class="n">MAX_WARRIOR_LEVEL</span><span class="p">]</span>
+        <span class="n">possible_upgrades</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">possible_upgrades</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">upgradable_warriors</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">possible_upgrades</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">upgraded</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Ulepsz losowo wybranych wojowników, którzy mogą być ulepszeni</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">upgradable_warriors</span><span class="p">)</span>  <span class="c1"># Losowa kolejność ulepszania</span>
+        <span class="k">for</span> <span class="n">warrior</span> <span class="ow">in</span> <span class="n">upgradable_warriors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">upgraded</span> <span class="o">&gt;=</span> <span class="n">possible_upgrades</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">warrior</span><span class="o">.</span><span class="n">upgrade</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">-=</span> <span class="n">UPGRADE_COST</span>
+                <span class="n">upgraded</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">upgraded</span></div>
+
+
+<div class="viewcode-block" id="Tribe.total_strength">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.total_strength">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_strength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Oblicz całkowitą siłę wojowników danego plemienia&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">warrior</span><span class="o">.</span><span class="n">strength</span> <span class="k">for</span> <span class="n">warrior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tribe.total_population">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.total_population">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_population</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Oblicz całkowitą populację danego plemienia&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tribe.perform_action">
+<a class="viewcode-back" href="../tribe.html#tribe.Tribe.perform_action">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Oblicz wagi dla poszczególnych akcji oraz wykonaj akcję w turze z wagą zależną od stanu plemienia.&quot;&quot;&quot;</span>
+        <span class="n">actions_with_weights</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;expand&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;train_workers&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;train_warriors&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;upgrade_warriors&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;nothing&#39;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Wagi dla jedzenia</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">&gt;</span> <span class="n">FOOD_PER_TERRITORY</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Jeśli mamy dużo jedzenia (2x więcej niż produkujemy)</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_workers&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_warriors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span> <span class="o">&lt;</span> <span class="n">FOOD_PER_TERRITORY</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">:</span>  <span class="c1"># Jeśli mamy mało jedzenia</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_workers&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.5</span>  <span class="c1"># Mniej chętnie rekrutuj robotników</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_warriors&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.5</span>  <span class="c1"># Mniej chętnie rekrutuj wojowników</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;nothing&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>  <span class="c1"># Skup się na gromadzeniu</span>
+
+        <span class="c1"># Wagi dla budulca</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">&gt;</span> <span class="n">EXPANSION_COST</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Jeśli mamy dużo budulca</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;expand&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;upgrade_warriors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">&lt;</span> <span class="n">EXPANSION_COST</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">:</span>  <span class="c1"># Jeśli mamy mało budulca</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;expand&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;upgrade_warriors&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;nothing&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+
+        <span class="c1"># Wagi dla populacji/terytorium</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_population</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="n">POPULATION_PER_TERRITORY</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">:</span>  <span class="c1"># Jeśli jest miejsce na populację</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_workers&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_warriors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Jeśli populacja jest blisko limitu</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;expand&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>  <span class="c1"># Bardziej chętnie rozszerzaj terytorium</span>
+
+        <span class="c1"># Wagi dla siły bojowej (mniej wojowników =&gt; chęć rekrutacji)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">POPULATION_PER_TERRITORY</span> <span class="o">/</span> <span class="mi">4</span><span class="p">):</span>  <span class="c1"># Jeśli wojowników jest relatywnie mało</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;train_warriors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.5</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="s1">&#39;upgrade_warriors&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.3</span>
+
+        <span class="c1"># Upewnij się, że wagi nie są ujemne</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions_with_weights</span><span class="p">:</span>
+            <span class="n">actions_with_weights</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">actions_with_weights</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Dodajemy 1, żeby każda akcja miała jakąś bazową wagę</span>
+
+        <span class="c1"># Wybierz akcję na podstawie wag, tworzymy</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">actions_with_weights</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">actions_with_weights</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># Jeśli wszystkie wagi są 0 (np. po tym jak zmieniliśmy na max(0, ...)), domyślnie wybierz &#39;nothing&#39;</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;nothing&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Wybieramy k (1) elementów z listy actions z szansą określoną w weights</span>
+
+        <span class="c1"># Wykonaj wybraną akcję</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;expand&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;train_workers&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_workers</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;train_warriors&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_warriors</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s1">&#39;upgrade_warriors&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_warriors</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># akcja &#39;nothing&#39; zawsze udana</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wyświetl podstawowe statystyki plemienia&quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Żywe&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span> <span class="k">else</span> <span class="s2">&quot;Wyeliminowane&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plemię </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">): Robotnicy=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Wojownicy=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span><span class="si">}</span><span class="s2"> (Siła:</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_strength</span><span class="p">())</span><span class="si">}</span><span class="s2">), &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Terytorium=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">territory</span><span class="p">)</span><span class="si">}</span><span class="s2">, Pożywienie=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">food</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Materiały=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">building_materials</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

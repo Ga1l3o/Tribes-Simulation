@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>board &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=331e28ce"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=2827c288"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Kod modułu</a></li>
+      <li class="breadcrumb-item active">board</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu board</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="n">STOLE_RESOURCES_MIN</span><span class="p">,</span> <span class="n">STOLE_RESOURCES_MAX</span>
+
+
+<div class="viewcode-block" id="Board">
+<a class="viewcode-back" href="../board.html#board.Board">[dokumentacja]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Board</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Klasa reprezentująca planszę&quot;&quot;&quot;</span>
+
+    <span class="c1"># Lista kodów kolorów ANSI, które będziemy cyklicznie przypisywać plemionom</span>
+    <span class="n">COLOR_CODES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[31m&#39;</span><span class="p">,</span>  <span class="c1"># czerwony</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[32m&#39;</span><span class="p">,</span>  <span class="c1"># zielony</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[33m&#39;</span><span class="p">,</span>  <span class="c1"># żółty</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[34m&#39;</span><span class="p">,</span>  <span class="c1"># niebieski</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[35m&#39;</span><span class="p">,</span>  <span class="c1"># magenta</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[36m&#39;</span><span class="p">,</span>  <span class="c1"># cyjan</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span><span class="p">,</span>  <span class="c1"># jasny czerwony</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span><span class="p">,</span>  <span class="c1"># jasny zielony</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span><span class="p">,</span>  <span class="c1"># jasny żółty</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m&#39;</span><span class="p">,</span>  <span class="c1"># jasny niebieski</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[95m&#39;</span><span class="p">,</span>  <span class="c1"># jasny magenta</span>
+        <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[96m&#39;</span><span class="p">,</span>  <span class="c1"># jasny cyjan</span>
+    <span class="p">]</span>
+    <span class="n">RESET_CODE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>  <span class="c1"># reset koloru (przywrócenie domyślnego)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tribes</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># agregacja - plemiona</span>
+
+<div class="viewcode-block" id="Board.place_tribe">
+<a class="viewcode-back" href="../board.html#board.Board.place_tribe">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">place_tribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tribe</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Umieść plemię na planszy&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tribes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tribe</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Board.get_random_empty_position">
+<a class="viewcode-back" href="../board.html#board.Board.get_random_empty_position">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_random_empty_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Znajdź losowe puste pole na planszy&quot;&quot;&quot;</span>
+        <span class="n">empty_positions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">empty_positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">empty_positions</span><span class="p">)</span> <span class="k">if</span> <span class="n">empty_positions</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Board.remove_tribe">
+<a class="viewcode-back" href="../board.html#board.Board.remove_tribe">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_tribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tribe</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Usuń plemię z planszy&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tribe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tribes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tribes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tribe</span><span class="p">)</span>
+            <span class="n">tribe</span><span class="o">.</span><span class="n">is_alive</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">tribe</span><span class="o">.</span><span class="n">territory</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Board.have_shared_border">
+<a class="viewcode-back" href="../board.html#board.Board.have_shared_border">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">have_shared_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tribe1</span><span class="p">,</span> <span class="n">tribe2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sprawdź czy dwa plemiona mają wspólną granicę&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="ow">in</span> <span class="n">tribe1</span><span class="o">.</span><span class="n">territory</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]:</span>
+                <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">dy</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tribe2</span><span class="o">.</span><span class="n">territory</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Board.battle">
+<a class="viewcode-back" href="../board.html#board.Board.battle">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">battle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">defender</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rozstrzygnij walkę między plemionami&quot;&quot;&quot;</span>
+        <span class="n">strength_attacker</span> <span class="o">=</span> <span class="n">attacker</span><span class="o">.</span><span class="n">total_strength</span><span class="p">()</span>
+        <span class="n">strength_defender</span> <span class="o">=</span> <span class="n">defender</span><span class="o">.</span><span class="n">total_strength</span><span class="p">()</span>
+
+        <span class="c1"># Jeśli obie siły są zerowe, to remis - nie ma walki</span>
+        <span class="k">if</span> <span class="n">strength_attacker</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">strength_defender</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+        <span class="c1"># Określenie zwycięzcy na podstawie siły</span>
+        <span class="k">if</span> <span class="n">strength_attacker</span> <span class="o">&gt;</span> <span class="n">strength_defender</span><span class="p">:</span>
+            <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="o">=</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">defender</span>
+            <span class="n">winner_strength</span><span class="p">,</span> <span class="n">loser_strength</span> <span class="o">=</span> <span class="n">strength_attacker</span><span class="p">,</span> <span class="n">strength_defender</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span> <span class="o">=</span> <span class="n">defender</span><span class="p">,</span> <span class="n">attacker</span>
+            <span class="n">winner_strength</span><span class="p">,</span> <span class="n">loser_strength</span> <span class="o">=</span> <span class="n">strength_defender</span><span class="p">,</span> <span class="n">strength_attacker</span>
+
+        <span class="c1"># Oblicz straty zwycięzcy zgodnie z wzorem</span>
+        <span class="n">winner_losses</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">winner_strength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Wzór: (W_wyg / S_wyg) * (S_przeg / S_wyg) * W_wyg</span>
+            <span class="n">winner_losses</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">winner</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span> <span class="o">/</span> <span class="n">winner_strength</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">loser_strength</span> <span class="o">/</span> <span class="n">winner_strength</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">winner</span><span class="o">.</span><span class="n">warriors</span><span class="p">))</span>
+
+
+        <span class="c1"># Zastosuj straty zwycięzcy - usuń wojowników</span>
+        <span class="c1"># Uwaga: min(winner_losses, len(winner.warriors)) aby nie przekroczyć</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">winner_losses</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">winner</span><span class="o">.</span><span class="n">warriors</span><span class="p">))):</span>
+            <span class="k">if</span> <span class="n">winner</span><span class="o">.</span><span class="n">warriors</span><span class="p">:</span>
+                <span class="n">winner</span><span class="o">.</span><span class="n">warriors</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="c1"># Przegrany traci WSZYSTKICH wojowników</span>
+        <span class="n">loser_losses</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">loser</span><span class="o">.</span><span class="n">warriors</span><span class="p">)</span>
+        <span class="n">loser</span><span class="o">.</span><span class="n">warriors</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Przejęcie zasobów</span>
+        <span class="n">winner</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">+=</span> <span class="n">loser</span><span class="o">.</span><span class="n">building_materials</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">STOLE_RESOURCES_MIN</span><span class="p">,</span> <span class="n">STOLE_RESOURCES_MAX</span><span class="p">)</span>
+        <span class="n">winner</span><span class="o">.</span><span class="n">food</span> <span class="o">+=</span> <span class="n">loser</span><span class="o">.</span><span class="n">food</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">STOLE_RESOURCES_MIN</span><span class="p">,</span> <span class="n">STOLE_RESOURCES_MAX</span><span class="p">)</span>
+
+        <span class="c1"># Usuń przegranego z planszy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_tribe</span><span class="p">(</span><span class="n">loser</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">,</span> <span class="n">winner_losses</span><span class="p">,</span> <span class="n">loser_losses</span></div>
+
+
+<div class="viewcode-block" id="Board.display_board">
+<a class="viewcode-back" href="../board.html#board.Board.display_board">[dokumentacja]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_board</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wyświetl planszę w konsoli.&quot;&quot;&quot;</span>
+        <span class="c1"># Maksymalna szerokość</span>
+        <span class="n">max_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cell</span> <span class="o">&gt;</span> <span class="n">max_id</span><span class="p">:</span>
+                    <span class="n">max_id</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="c1"># min 2, max 3 (zależnie od długości maksymalnej ID plemienia)</span>
+        <span class="n">cell_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">max_id</span><span class="p">)))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Plansza ---&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">color_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">COLOR_CODES</span><span class="p">[</span><span class="n">cell</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">COLOR_CODES</span><span class="p">)]</span>
+                    <span class="c1"># rjust dopełnia spacji z lewej, więc &#39; 10&#39; zamiast &#39;10&#39;</span>
+                    <span class="n">cell_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">cell_width</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}{</span><span class="n">cell_str</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">RESET_CODE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># analogicznie do pustego pola: kropka w położeniu wycentrowanym</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">cell_width</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

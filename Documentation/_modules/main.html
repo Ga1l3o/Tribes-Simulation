@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=331e28ce"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=2827c288"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Kod modułu</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Kod źródłowy modułu main</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">simulation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simulation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">graf</span><span class="w"> </span><span class="kn">import</span> <span class="n">TribeCharts</span>
+
+<div class="viewcode-block" id="get_validated_input">
+<a class="viewcode-back" href="../main.html#main.get_validated_input">[dokumentacja]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_validated_input</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">input_type</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pobiera i waliduje dane wejściowe od użytkownika w pętli.</span>
+<span class="sd">    prompt: Treść do wyświetlenia użytkownikowi.</span>
+<span class="sd">    min_val: Minimalna dozwolona wartość.</span>
+<span class="sd">    max_val: Maksymalna dozwolona wartość.</span>
+<span class="sd">    input_type: Typ, na który ma być skonwertowana wartość (int lub float).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">input_type</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="n">prompt</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">min_val</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">max_val</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Błąd: Wartość musi być w zakresie od </span><span class="si">{</span><span class="n">min_val</span><span class="si">}</span><span class="s2"> do </span><span class="si">{</span><span class="n">max_val</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Błąd: Wprowadzono niepoprawny format. Proszę wprowadzić liczbę.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Wystąpił nieoczekiwany błąd: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../main.html#main.main">[dokumentacja]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Główna funkcja uruchamiająca symulację&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Symulacja Walki Plemion ===&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Pobierz i waliduj rozmiar planszy</span>
+    <span class="n">board_size</span> <span class="o">=</span> <span class="n">get_validated_input</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Rozmiar planszy (</span><span class="si">{</span><span class="n">MIN_BOARD_SIZE</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">MAX_BOARD_SIZE</span><span class="si">}</span><span class="s2">): &quot;</span><span class="p">,</span>
+        <span class="n">MIN_BOARD_SIZE</span><span class="p">,</span>
+        <span class="n">MAX_BOARD_SIZE</span><span class="p">,</span>
+        <span class="nb">int</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Oblicz maksymalną liczbę plemion na podstawie walidowanego rozmiaru planszy</span>
+    <span class="n">max_tribes_calculated</span> <span class="o">=</span> <span class="p">(</span><span class="n">board_size</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="n">MAX_TRIBES_RATIO</span>
+
+    <span class="c1"># Pobierz i waliduj liczbę plemion</span>
+    <span class="n">tribes_count</span> <span class="o">=</span> <span class="n">get_validated_input</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Liczba plemion (</span><span class="si">{</span><span class="n">MIN_TRIBES</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">max_tribes_calculated</span><span class="si">}</span><span class="s2">): &quot;</span><span class="p">,</span>
+        <span class="n">MIN_TRIBES</span><span class="p">,</span>
+        <span class="n">max_tribes_calculated</span><span class="p">,</span>
+        <span class="nb">int</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Pobierz i waliduj czas trwania tury</span>
+    <span class="n">time_per_turn</span> <span class="o">=</span> <span class="n">get_validated_input</span><span class="p">(</span>
+        <span class="s2">&quot;Czas trwania tury (sekundy) (0.0-60.0): &quot;</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">60.0</span><span class="p">,</span>
+        <span class="nb">float</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Uruchom symulację</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">board_size</span><span class="p">,</span> <span class="n">tribes_count</span><span class="p">,</span> <span class="n">time_per_turn</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Symulacja zakończona! Dane zapisano do tribes_data.csv i battles.csv&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Czy chcesz zobaczyć wykresy plemion? (T/N)&quot;</span><span class="p">)</span>
+    <span class="n">userInput</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">userInput</span> <span class="o">==</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">charts</span> <span class="o">=</span> <span class="n">TribeCharts</span><span class="p">(</span><span class="s2">&quot;tribes_data.csv&quot;</span><span class="p">)</span>
+        <span class="n">charts</span><span class="o">.</span><span class="n">draw_charts</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

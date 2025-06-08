@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symulacja Walki Plemion &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=331e28ce"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=2827c288"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Board Module" href="board.html" />
+    <link rel="prev" title="Tribe – dokumentacja projektu" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Symulacja Walki Plemion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sklad-grupy-projektowej">Skład grupy projektowej</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opis-zadania-symulacji">Opis zadania symulacji</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#glowne-funkcjonalnosci">Główne funkcjonalności:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diagramy-klas">Diagramy klas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diagramy-obiektow">Diagramy obiektów</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diagramy-sekwencji">Diagramy sekwencji</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diagramy-maszyny-stanow">Diagramy maszyny stanów</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Symulacja Walki Plemion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> Zobacz źródło strony</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="symulacja-walki-plemion">
+<h1>Symulacja Walki Plemion<a class="headerlink" href="#symulacja-walki-plemion" title="Link to this heading"></a></h1>
+<p>Projekt symulacji walki plemion został zrealizowany w ramach zajęć z Programowania Obiektowego. Celem projektu było stworzenie aplikacji, która symuluje rozwój, interakcje oraz walki między plemionami na planszy. Projekt wykorzystuje zaawansowane techniki programowania obiektowego, takie jak dziedziczenie, polimorfizm, kompozycja i agregacja, aby zapewnić modularność, czytelność i łatwość rozbudowy kodu.</p>
+<section id="sklad-grupy-projektowej">
+<h2>Skład grupy projektowej<a class="headerlink" href="#sklad-grupy-projektowej" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Lider</strong>: Michał Janic</p></li>
+<li><p><strong>Współtwórca</strong>: Mikołaj Petek</p></li>
+</ul>
+</section>
+<section id="opis-zadania-symulacji">
+<h2>Opis zadania symulacji<a class="headerlink" href="#opis-zadania-symulacji" title="Link to this heading"></a></h2>
+<p>Symulacja polega na zarządzaniu plemionami, które rywalizują o zasoby, rozwijają swoje terytorium, rekrutują jednostki (robotników i wojowników), ulepszają wojowników oraz prowadzą walki z innymi plemionami. Każde plemię ma swoje unikalne cechy, takie jak liczba jednostek, siła wojowników, ilość zasobów oraz zajmowane terytorium.</p>
+<section id="glowne-funkcjonalnosci">
+<h3>Główne funkcjonalności:<a class="headerlink" href="#glowne-funkcjonalnosci" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Zbieranie surowców</strong>:
+- Robotnicy generują materiały budowlane.
+- Terytorium plemienia dostarcza jedzenie.</p></li>
+<li><p><strong>Rekrutacja jednostek</strong>:
+- Plemię może rekrutować robotników i wojowników, zużywając dostępne zasoby.</p></li>
+<li><p><strong>Rozszerzanie terytorium</strong>:
+- Plemię może rozszerzać swoje terytorium, jeśli posiada wystarczającą ilość materiałów budowlanych.</p></li>
+<li><p><strong>Ulepszanie wojowników</strong>:
+- Wojownicy mogą być ulepszani, co zwiększa ich siłę bojową.</p></li>
+<li><p><strong>Walka między plemionami</strong>:
+- Plemię może atakować inne plemiona, jeśli mają wspólną granicę. Wynik walki zależy od siły wojowników obu plemion.</p></li>
+<li><p><strong>Konsumpcja zasobów</strong>:
+- Jednostki plemienia zużywają jedzenie. Jeśli jedzenia jest za mało, populacja plemienia jest redukowana.</p></li>
+</ol>
+<p>### Wyniki symulacji:
+Symulacja przebiega w turach, w których plemiona wykonują różne akcje. Wyniki symulacji są zapisywane w plikach CSV, a użytkownik ma możliwość wygenerowania wykresów przedstawiających rozwój plemion w czasie.</p>
+</section>
+</section>
+<section id="diagramy-klas">
+<h2>Diagramy klas<a class="headerlink" href="#diagramy-klas" title="Link to this heading"></a></h2>
+<p>Diagram klas przedstawia strukturę projektu, w tym relacje między klasami, ich atrybuty oraz metody.</p>
+<figure class="align-default" id="id1">
+<p class="plantuml">
+<img src="_images/plantuml-32edf1f45399ef79aa5e0e73747b7606bc3c4610.png" alt="&#64;startuml
+class Unit {
+    - tribe : Tribe
+    + tribe : Tribe
+    + food_consumption() : int
+}
+
+class Worker {
+    + food_consumption() : int
+}
+
+class Warrior {
+    - level : int
+    - strength : int
+    + level : int
+    + strength : int
+    + food_consumption() : int
+    + upgrade() : bool
+}
+
+class Tribe {
+    - id : int
+    - territory : set
+    - workers : list
+    - warriors : list
+    - building_materials : int
+    - food : int
+    - is_alive : bool
+    + add_territory(x : int, y : int)
+    + add_worker()
+    + add_warrior()
+    + collect_resources()
+    + consume_food()
+    + reduce_population(deficit : int)
+    + train_workers() : int
+    + train_warriors() : int
+    + expand() : bool
+    + upgrade_warriors() : int
+    + total_strength() : int
+    + total_population() : int
+    + perform_action() : bool
+}
+
+class Board {
+    - size : int
+    - grid : list
+    - tribes : list
+    + place_tribe(tribe : Tribe)
+    + get_random_empty_position() : tuple
+    + remove_tribe(tribe : Tribe)
+    + have_shared_border(tribe1 : Tribe, tribe2 : Tribe) : bool
+    + battle(attacker : Tribe, defender : Tribe) : tuple
+    + display_board()
+}
+
+class Simulation {
+    - board_size : int
+    - tribes_count : int
+    - time_per_turn : float
+    - board : Board
+    - turn : int
+    - simulation_data : list
+    - battle_log : list
+    + initialize()
+    + run()
+    + check_collisions()
+    + save_to_csv()
+}
+
+Unit &lt;|-- Worker
+Unit &lt;|-- Warrior
+Tribe *-- Worker
+Tribe *-- Warrior
+Board *-- Tribe
+Simulation *-- Board
+&#64;enduml"/>
+</p>
+<figcaption>
+<p><span class="caption-text">Diagram klas</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagramy-obiektow">
+<h2>Diagramy obiektów<a class="headerlink" href="#diagramy-obiektow" title="Link to this heading"></a></h2>
+<p>Diagram obiektów przedstawia przykładową instancję symulacji, w której występują plemiona, jednostki oraz plansza.</p>
+<figure class="align-default" id="id2">
+<p class="plantuml">
+<img src="_images/plantuml-74a27f9dca960b5d3393e25dbc0386e5b58968a3.png" alt="&#64;startuml
+object Board {
+    size = 20
+    tribes = [Tribe1, Tribe2]
+}
+
+object Tribe1 {
+    id = 1
+    territory = {(0,0), (0,1)}
+    workers = [Worker1, Worker2]
+    warriors = [Warrior1]
+    building_materials = 100
+    food = 50
+    is_alive = true
+}
+
+object Tribe2 {
+    id = 2
+    territory = {(5,5), (5,6)}
+    workers = [Worker3]
+    warriors = [Warrior2, Warrior3]
+    building_materials = 80
+    food = 40
+    is_alive = true
+}
+
+object Worker1 {
+    tribe = Tribe1
+}
+
+object Warrior1 {
+    tribe = Tribe1
+    level = 2
+    strength = 6
+}
+
+Board *-- Tribe1
+Board *-- Tribe2
+Tribe1 *-- Worker1
+Tribe1 *-- Warrior1
+Tribe2 *-- Worker3
+Tribe2 *-- Warrior2
+Tribe2 *-- Warrior3
+&#64;enduml"/>
+</p>
+<figcaption>
+<p><span class="caption-text">Diagram obiektów</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagramy-sekwencji">
+<h2>Diagramy sekwencji<a class="headerlink" href="#diagramy-sekwencji" title="Link to this heading"></a></h2>
+<p>Diagram sekwencji przedstawia interakcje między obiektami podczas jednej tury symulacji.</p>
+<figure class="align-default" id="id3">
+<p class="plantuml">
+<img src="_images/plantuml-7c56205d27d95a520efbd397c723990e346f5311.png" alt="&#64;startuml
+actor User
+User -&gt; Simulation : run()
+Simulation -&gt; Board : initialize()
+Board -&gt; Tribe : place_tribe()
+Tribe -&gt; Worker : add_worker()
+Tribe -&gt; Warrior : add_warrior()
+Simulation -&gt; Tribe : perform_action()
+Tribe -&gt; Worker : collect_resources()
+Tribe -&gt; Warrior : upgrade()
+Tribe -&gt; Board : expand()
+Simulation -&gt; Tribe : consume_food()
+Tribe -&gt; Worker : reduce_population()
+Simulation -&gt; Board : check_collisions()
+Board -&gt; Tribe : battle()
+Simulation -&gt; User : save_to_csv()
+&#64;enduml"/>
+</p>
+<figcaption>
+<p><span class="caption-text">Diagram sekwencji</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="diagramy-maszyny-stanow">
+<h2>Diagramy maszyny stanów<a class="headerlink" href="#diagramy-maszyny-stanow" title="Link to this heading"></a></h2>
+<p>Diagram maszyny stanów przedstawia cykl życia plemienia w symulacji.</p>
+<figure class="align-default" id="id4">
+<p class="plantuml">
+<img src="_images/plantuml-49d02cc63c6fed671242de1487280e297a2b5c28.png" alt="&#64;startuml
+[*] --&gt; Alive : Initialize
+Alive --&gt; Expanding : expand()
+Alive --&gt; Recruiting : train_workers(), train_warriors()
+Alive --&gt; Fighting : battle()
+Alive --&gt; Consuming : consume_food()
+Consuming --&gt; Alive : Resources sufficient
+Consuming --&gt; Eliminated : Resources insufficient
+Fighting --&gt; Alive : Win battle
+Fighting --&gt; Eliminated : Lose battle
+Eliminated --&gt; [*]
+&#64;enduml"/>
+</p>
+<figcaption>
+<p><span class="caption-text">Diagram maszyny stanów</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Tribe – dokumentacja projektu" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Poprzedni</a>
+        <a href="board.html" class="btn btn-neutral float-right" title="Board Module" accesskey="n" rel="next">Następny <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

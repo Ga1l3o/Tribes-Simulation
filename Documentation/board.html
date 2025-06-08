@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pl" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board Module &mdash; Tribe 1.0 - dokumentacja</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=331e28ce"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=2827c288"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Config Module" href="config.html" />
+    <link rel="prev" title="Symulacja Walki Plemion" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Tribe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Szukaj" aria-label="Szukaj" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Zawartość dokumentacji:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Symulacja Walki Plemion</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Board Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#board.Board"><code class="docutils literal notranslate"><span class="pre">Board</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.COLOR_CODES"><code class="docutils literal notranslate"><span class="pre">Board.COLOR_CODES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.RESET_CODE"><code class="docutils literal notranslate"><span class="pre">Board.RESET_CODE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.battle"><code class="docutils literal notranslate"><span class="pre">Board.battle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.display_board"><code class="docutils literal notranslate"><span class="pre">Board.display_board()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.get_random_empty_position"><code class="docutils literal notranslate"><span class="pre">Board.get_random_empty_position()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.have_shared_border"><code class="docutils literal notranslate"><span class="pre">Board.have_shared_border()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.place_tribe"><code class="docutils literal notranslate"><span class="pre">Board.place_tribe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board.Board.remove_tribe"><code class="docutils literal notranslate"><span class="pre">Board.remove_tribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Config Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graf.html">Graf Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">Simulation Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tribe.html">Tribe Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units.html">Units Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tribe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Board Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/board.rst.txt" rel="nofollow"> Zobacz źródło strony</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-board">
+<span id="board-module"></span><h1>Board Module<a class="headerlink" href="#module-board" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="board.Board">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">board.</span></span><span class="sig-name descname"><span class="pre">Board</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board" title="Link to this definition"></a></dt>
+<dd><p>Klasy bazowe: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasa reprezentująca planszę</p>
+    
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.battle">
+<span class="sig-name descname"><span class="pre">battle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attacker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defender</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.battle"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.battle" title="Link to this definition"></a></dt>
+<dd><p>Rozstrzygnij walkę między plemionami</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.display_board">
+<span class="sig-name descname"><span class="pre">display_board</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.display_board"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.display_board" title="Link to this definition"></a></dt>
+<dd><p>Wyświetl planszę w konsoli.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.get_random_empty_position">
+<span class="sig-name descname"><span class="pre">get_random_empty_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.get_random_empty_position"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.get_random_empty_position" title="Link to this definition"></a></dt>
+<dd><p>Znajdź losowe puste pole na planszy</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.have_shared_border">
+<span class="sig-name descname"><span class="pre">have_shared_border</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tribe1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tribe2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.have_shared_border"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.have_shared_border" title="Link to this definition"></a></dt>
+<dd><p>Sprawdź czy dwa plemiona mają wspólną granicę</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.place_tribe">
+<span class="sig-name descname"><span class="pre">place_tribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tribe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.place_tribe"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.place_tribe" title="Link to this definition"></a></dt>
+<dd><p>Umieść plemię na planszy</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="board.Board.remove_tribe">
+<span class="sig-name descname"><span class="pre">remove_tribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tribe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/board.html#Board.remove_tribe"><span class="viewcode-link"><span class="pre">[źródło]</span></span></a><a class="headerlink" href="#board.Board.remove_tribe" title="Link to this definition"></a></dt>
+<dd><p>Usuń plemię z planszy</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="Symulacja Walki Plemion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Poprzedni</a>
+        <a href="config.html" class="btn btn-neutral float-right" title="Config Module" accesskey="n" rel="next">Następny <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Prawa zastrzeżone 2025, Michał J, Mikołaj P.</p>
+  </div>
+
+  Zbudowano w <a href="https://www.sphinx-doc.org/">Sphinx</a> używając
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    dostarczone przez <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

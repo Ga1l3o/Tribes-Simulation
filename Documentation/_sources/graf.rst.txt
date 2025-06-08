@@ -1,0 +1,7 @@
+Graf Module
+===========
+
+.. automodule:: graf
+   :members:
+   :show-inheritance:
+   :undoc-members:
