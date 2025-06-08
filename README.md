@@ -3,6 +3,7 @@
 **Symulacja rozwoju plemion na 2D-planszy w Pythonie (ekspansja, surowce, bitwy)**
 
 ---
+UWAGA: Pełna dokumentacja znajduje się w folderze #Documentation
 
 ## Spis treści
 
