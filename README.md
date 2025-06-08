@@ -72,6 +72,9 @@ Symulacja przebiega w turach synchronicznych:
 6. **Zakończenie symulacji**:  
    - Symulacja kończy się, gdy na planszy pozostanie tylko jedno plemię (zwycięskie) lub osiągniemy zdefiniowany w `main.py` (lub `config.py`) limit tur.
 
+7. **Testy jednostkowe:**
+   - W folderze "tests" znajdują się testy jednostkowe.
+
 Kod jest podzielony na następujące pliki:
 
 - `board.py`     – klasa `Board`, która trzyma siatkę, realizuje funkcje `place_tribe`, `battle`, `have_shared_border` itp.  
