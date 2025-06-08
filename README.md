@@ -3,7 +3,10 @@
 **Symulacja rozwoju plemion na 2D-planszy w Pythonie (ekspansja, surowce, bitwy)**
 
 ---
-UWAGA: Pełna dokumentacja znajduje się w folderze #Documentation
+
+## WAŻNA UWAGA
+
+**Poniższy opis jest poglądowy. Pełna dokumentacja znajduje się w folderze DOCUMENTATION**. Jest w formie strony HTML; należy pobrać folder "Documentation" oraz włączyć plik 'overview.html'.
 
 ## Spis treści
 
@@ -63,8 +66,8 @@ Symulacja przebiega w turach synchronicznych:
      ```
    - Straty są proporcjonalne do siły przeciwnika – przykładowo:  
      - Jeśli siła Plemienia A = 50, Plemienia B = 30, to A straci `(30/50) * liczba_wojowników_A`, B straci `(50/30) * liczba_wojowników_B` (zaokrąglone w dół do najbliższej liczby całkowitej).  
-   - Zwycięzca (ten, co ma większą siłę) **zbiera wszystkie surowce pokonanego plemienia** (jego jedzenie + materiały).  
-   - Przegrany traci cały posterunek (usuwa się go z planszy, czyli z `Board.tribes` i `Board.grid`).
+   - Zwycięzca (ten, co ma większą siłę) **zbiera część surowców pokonanego plemienia** (jego jedzenie + materiały).  
+   - Przegrany traci cały teren (usuwa się go z planszy, czyli z `Board.tribes` i `Board.grid`).
 
 6. **Zakończenie symulacji**:  
    - Symulacja kończy się, gdy na planszy pozostanie tylko jedno plemię (zwycięskie) lub osiągniemy zdefiniowany w `main.py` (lub `config.py`) limit tur.
