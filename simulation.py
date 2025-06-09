@@ -82,12 +82,12 @@ class Simulation:
             self.check_collisions()
 
             # Wyświetl planszę i statystyki
-            self.board.display_board()
+            
             print("--- Statystyki Plemion ---")
             for tribe in self.board.tribes:
                 print(tribe)
-            print("------------------------\n")
 
+            self.board.display_board()
             # Oczekiwanie między turami
             time.sleep(self.time_per_turn)
 
